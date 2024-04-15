@@ -23,7 +23,7 @@ jobs:
 
       - name: Configure Docker
         run: |
-          gcloud auth configure-docker asia-southeast2-docker.pkg.dev
+          gcloud auth configure-docker
 
       - name: Build
         run: |
