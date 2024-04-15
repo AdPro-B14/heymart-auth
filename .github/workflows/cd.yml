@@ -25,16 +25,15 @@ jobs:
 
       - name: Configure Docker
         run: |
-          gcloud auth configure-docker \
-            asia-southeast2-docker.pkg.dev
+          gcloud auth configure-docker
 
       - name: Build
         run: |
-          docker build -t asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-auth:latest .
+          docker build -t asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-auth/heymart-auth .
 
       - name: Push
         run: |
-          docker push heymart-auth
+          docker push asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-auth/heymart-auth
 
       - name: Deploy
         run: |
