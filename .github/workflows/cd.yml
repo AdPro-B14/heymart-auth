@@ -49,5 +49,5 @@ jobs:
           --allow-unauthenticated \
           --project ${{ secrets.GCP_PROJECT_ID }} \
           --set-env-vars=PG_HOST=${{ secrets.PG_HOST }} \
-          --set-env-vars=PG_DB=${{ secrets.PG_USERNAME }} \
-          --set-env-vars=PG_USER=${{ secrets.PG_PASSWORD }} \
+          --set-env-vars=PG_USERNAME=${{ secrets.PG_USERNAME }} \
+          --set-env-vars=PG_PASSWORD=${{ secrets.PG_PASSWORD }}
