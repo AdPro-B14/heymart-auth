@@ -34,17 +34,17 @@ jobs:
 
       - name: Build
         run: |
-          docker build -t asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-auth/heymart-auth .
+          docker build -t asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-auth .
 
       - name: Push
         run: |
-          docker push asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-auth/heymart-auth
+          docker push asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-auth
 
       - name: Deploy
         run: |
           gcloud run deploy heymart-auth \
           --region asia-southeast2 \
-          --image asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-auth/heymart-auth \
+          --image asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/heymart-auth \
           --platform managed \
           --allow-unauthenticated \
           --project ${{ secrets.GCP_PROJECT_ID }} \
