@@ -22,10 +22,10 @@ repositories {
 	mavenCentral()
 }
 
-val seleniumJavaVersion = "4.41.1"
-val seleniumJupiterVersion = "5.0.1"
-val webdrivermanagerVersion = "5.6.3"
-val junitJupiterVersion = "5.9.1"
+var seleniumJavaVersion = "4.14.1"
+var seleniumJupiterVersion = "5.0.1"
+var webdrivermanagerVersion = "5.6.3"
+var junitJupiterVersion = "5.9.1"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
