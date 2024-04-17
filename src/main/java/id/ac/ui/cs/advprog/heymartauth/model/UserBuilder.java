@@ -13,10 +13,6 @@ public class UserBuilder {
 
     private String role;
 
-    UserBuilder() {
-        this.user = new User();
-    }
-
     UserBuilder setName(String name) {
         if (name == null || name.length() < 5) {
             throw new IllegalArgumentException();
