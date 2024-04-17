@@ -11,7 +11,7 @@ public class UserBuilder {
 
     private String password;
 
-    private String role;
+    private UserRole role;
 
     UserBuilder setName(String name) {
         if (name == null || name.length() < 5) {
@@ -45,7 +45,7 @@ public class UserBuilder {
             throw new IllegalArgumentException();
         }
 
-        this.role = role;
+        this.role = UserRole.valueOf(role.toUpperCase());
         return this;
     }
 

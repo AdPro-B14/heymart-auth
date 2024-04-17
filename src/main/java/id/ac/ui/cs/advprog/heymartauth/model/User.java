@@ -21,7 +21,7 @@ public class User {
 
     @Getter
     @Setter
-    private String role;
+    private UserRole role;
 
     public static UserBuilder getBuilder() {
         return new UserBuilder();

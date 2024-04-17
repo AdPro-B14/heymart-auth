@@ -62,4 +62,20 @@ public class UserTest {
         assertDoesNotThrow(() -> User.getBuilder().setPassword("arvinciu123"));
         assertDoesNotThrow(() -> User.getBuilder().setPassword("abcdwdwrwrwrwr423"));
     }
+
+    @Test
+    void testUserBuild() {
+        User user1 = User.getBuilder()
+                .setName("Arvin")
+                .setEmail("arvinciu86@gmail.com")
+                .setPassword("adprolancar123")
+                .setRole("aDmiN")
+                .build();
+
+
+        assertEquals("Arvin", user1.getName());
+        assertEquals("arvinciu86@gmail.com", user1.getEmail());
+        assertEquals("adprolancar123", user1.getPassword());
+        assertEquals(UserRole.ADMIN, user1.getRole());
+    }
 }
