@@ -13,7 +13,7 @@ public class UserBuilder {
 
     private UserRole role;
 
-    UserBuilder setName(String name) {
+    public UserBuilder setName(String name) {
         if (name == null || name.length() < 5) {
             throw new IllegalArgumentException();
         }
@@ -22,7 +22,7 @@ public class UserBuilder {
         return this;
     }
 
-    UserBuilder setEmail(String email) {
+    public UserBuilder setEmail(String email) {
         if (email == null || !Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,7}\\b").matcher(email).matches()) {
             throw new IllegalArgumentException();
         }
@@ -31,7 +31,7 @@ public class UserBuilder {
         return this;
     }
 
-    UserBuilder setPassword(String password) {
+    public UserBuilder setPassword(String password) {
         if (password == null || password.length() < 8) {
             throw new IllegalArgumentException();
         }
@@ -40,7 +40,7 @@ public class UserBuilder {
         return this;
     }
 
-    UserBuilder setRole(String role) {
+    public UserBuilder setRole(String role) {
         if (role == null || !UserRole.contains(role)) {
             throw new IllegalArgumentException();
         }
@@ -49,7 +49,7 @@ public class UserBuilder {
         return this;
     }
 
-    User build() {
+    public User build() {
         User user = new User();
         user.setName(this.name);
         user.setEmail(this.email);

@@ -26,6 +26,7 @@ var seleniumJavaVersion = "4.14.1"
 var seleniumJupiterVersion = "5.0.1"
 var webdrivermanagerVersion = "5.6.3"
 var junitJupiterVersion = "5.9.1"
+var jsonwebtokenVersion = "0.11.5"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
@@ -34,9 +35,18 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	annotationProcessor("org.projectlombok:lombok")
+//	jpa
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.postgresql:postgresql")
+//	jwt
+	implementation("io.jsonwebtoken:jjwt-api:$jsonwebtokenVersion")
+	implementation("io.jsonwebtoken:jjwt-impl:$jsonwebtokenVersion")
+	implementation("io.jsonwebtoken:jjwt-jackson:$jsonwebtokenVersion")
+	implementation("org.springframework.security:spring-security-core")
+	implementation("org.springframework.security:spring-security-web")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+//	test
 	testImplementation("org.seleniumhq.selenium:selenium-java:$seleniumJavaVersion")
 	testImplementation("io.github.bonigarcia:selenium-jupiter:$seleniumJupiterVersion")
 	testImplementation("io.github.bonigarcia:webdrivermanager:$webdrivermanagerVersion")
