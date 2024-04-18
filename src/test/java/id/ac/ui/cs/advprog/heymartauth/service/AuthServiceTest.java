@@ -45,7 +45,6 @@ public class AuthServiceTest {
         String name = "arvin-123";
         String email = "arvin@gmail.com";
         String password = "adpro12345";
-        String token = "jwt-token-123";
 
         doReturn("213921839afwqfn").when(passwordEncoder).encode(password);
 

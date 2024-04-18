@@ -31,12 +31,13 @@ public class AuthService {
                 .setRole("customer")
                 .build();
 
-        if(userRepository.findByEmail(request.getEmail()).isEmpty()){
-            userRepository.save(user);
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("User already exists.");
         }
 
-        var jwtToken = jwtService.generateToken(user);
+        userRepository.save(user);
 
+        var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
