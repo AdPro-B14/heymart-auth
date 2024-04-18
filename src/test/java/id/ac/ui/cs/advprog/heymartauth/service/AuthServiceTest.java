@@ -85,7 +85,6 @@ public class AuthServiceTest {
         registerResponse.setToken(token);
 
         doReturn(token).when(jwtService).generateToken(user);
-        doReturn(Optional.of(user)).when(userRepository).findByEmail(user.getEmail());
 
         assertEquals(registerResponse, authService.register(registerRequest));
     }
