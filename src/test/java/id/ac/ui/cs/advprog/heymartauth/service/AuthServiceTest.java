@@ -3,6 +3,7 @@ package id.ac.ui.cs.advprog.heymartauth.service;
 import id.ac.ui.cs.advprog.heymartauth.model.User;
 import id.ac.ui.cs.advprog.heymartauth.repository.UserRepository;
 import id.ac.ui.cs.advprog.heymartauth.request.AuthenticationRequest;
+import id.ac.ui.cs.advprog.heymartauth.request.UserRegisterRequest;
 import id.ac.ui.cs.advprog.heymartauth.response.AuthenticationResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,9 +11,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -21,6 +23,9 @@ import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthServiceTest {
+    @Mock
+    private AuthenticationManager authenticationManager;
+
     @Mock
     private UserRepository userRepository;
 
@@ -33,6 +38,8 @@ public class AuthServiceTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
+    private User user;
+
     @BeforeEach
     void setUp() {
         String name = "arvin-123";
@@ -42,7 +49,7 @@ public class AuthServiceTest {
 
         doReturn("213921839afwqfn").when(passwordEncoder).encode(password);
 
-        User user = User.getBuilder()
+        user = User.getBuilder()
                 .setName(name)
                 .setEmail(email)
                 .setPassword(passwordEncoder.encode(password))
@@ -52,9 +59,6 @@ public class AuthServiceTest {
         AuthenticationRequest registerRequest = new AuthenticationRequest();
         registerRequest.setEmail(email);
         registerRequest.setPassword(password);
-
-        doReturn(token).when(jwtService).generateToken(new HashMap<>(), user);
-        doReturn(Optional.ofNullable(user)).when(userRepository).findByEmail(email);
     }
 
     @Test
@@ -73,14 +77,16 @@ public class AuthServiceTest {
                 .setRole("customer")
                 .build();
 
-        AuthenticationRequest registerRequest = new AuthenticationRequest();
+        UserRegisterRequest registerRequest = new UserRegisterRequest();
+        registerRequest.setName(name);
         registerRequest.setEmail(email);
         registerRequest.setPassword(password);
 
         AuthenticationResponse registerResponse = new AuthenticationResponse();
         registerResponse.setToken(token);
 
-        doReturn(token).when(jwtService).generateToken(new HashMap<>(), user);
+        doReturn(token).when(jwtService).generateToken(user);
+        doReturn(Optional.of(user)).when(userRepository).findByEmail(user.getEmail());
 
         assertEquals(registerResponse, authService.register(registerRequest));
     }
@@ -90,25 +96,32 @@ public class AuthServiceTest {
         String email = "abcdefg@gmail.com";
         String password = "abcdefg123";
 
-        AuthenticationRequest registerRequest1 = new AuthenticationRequest();
+        UserRegisterRequest registerRequest1 = new UserRegisterRequest();
         registerRequest1.setEmail(email);
 
-        assertThrows(IllegalAccessError.class, () -> authService.register(registerRequest1));
+        assertThrows(IllegalArgumentException.class, () -> authService.register(registerRequest1));
 
-        AuthenticationRequest registerRequest2 = new AuthenticationRequest();
+        UserRegisterRequest registerRequest2 = new UserRegisterRequest();
         registerRequest2.setPassword(password);
 
-        assertThrows(IllegalAccessError.class, () -> authService.register(registerRequest2));
+        assertThrows(IllegalArgumentException.class, () -> authService.register(registerRequest2));
 
-        AuthenticationRequest registerRequest3 = new AuthenticationRequest();
+        UserRegisterRequest registerRequest3 = new UserRegisterRequest();
 
-        assertThrows(IllegalAccessError.class, () -> authService.register(registerRequest3));
+        assertThrows(IllegalArgumentException.class, () -> authService.register(registerRequest3));
     }
 
     @Test
     void testAuthenticateValid() {
+        doReturn("jwt-token-123").when(jwtService).generateToken(user);
+        doReturn(Optional.ofNullable(user)).when(userRepository).findByEmail(user.getEmail());
+        doReturn(null).when(authenticationManager).authenticate(new UsernamePasswordAuthenticationToken(
+                user.getEmail(),
+                "adpro12345"
+        ));
+
         AuthenticationRequest authenticateRequest = new AuthenticationRequest();
-        authenticateRequest.setEmail("arvin@gmail.com");
+        authenticateRequest.setEmail(user.getEmail());
         authenticateRequest.setPassword("adpro12345");
 
         AuthenticationResponse authenticateResponse = new AuthenticationResponse();

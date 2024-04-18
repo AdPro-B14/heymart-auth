@@ -1,6 +1,10 @@
 package id.ac.ui.cs.advprog.heymartauth.service;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,45 +16,62 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    private static final String SECRET_KEY = null;
+    private static final String SECRET_KEY = System.getenv("JWT_SECRET_KEY");
 
     public String extractUsername(String token) {
-        return null;
+        return extractClaim(token, Claims::getSubject);
     }
 
     public String extractId(String token) {
-        return null;
+        return extractClaim(token, Claims::getId);
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return null;
+        return Jwts.builder()
+                .setClaims(extraClaims)
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        return false;
+        final String username = extractUsername(token);
+        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
     public boolean isTokenExpired(String token) {
-        return false;
+        Date expiredDate = extractExpiration(token);
+        if (expiredDate == null) {
+            return false;
+        }
+        return expiredDate.before(new Date());
     }
 
     private Date extractExpiration(String token) {
-        return null;
+        return extractClaim(token, Claims::getExpiration);
     }
 
     public String generateToken(UserDetails userDetails) {
-        return null;
+        return generateToken(new HashMap<>(), userDetails);
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
-        return null;
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
     }
 
     private Claims extractAllClaims(String token){
-        return null;
+        return Jwts.parserBuilder()
+                .setSigningKey(getSignInKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     private Key getSignInKey(){
-        return null;
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }

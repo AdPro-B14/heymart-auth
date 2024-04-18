@@ -46,6 +46,8 @@ dependencies {
 	implementation("org.springframework.security:spring-security-core")
 	implementation("org.springframework.security:spring-security-web")
 	implementation("org.springframework.boot:spring-boot-starter-security")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.security:spring-security-test")
 //	test
 	testImplementation("org.seleniumhq.selenium:selenium-java:$seleniumJavaVersion")
 	testImplementation("io.github.bonigarcia:selenium-jupiter:$seleniumJupiterVersion")
