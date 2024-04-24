@@ -21,6 +21,7 @@ public class UserController {
         response.name = user.getName();
         response.email = user.getEmail();
         response.id = user.getId();
+        response.role = user.getRole();
 
         return ResponseEntity.ok(response);
     }
