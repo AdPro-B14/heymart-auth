@@ -2,9 +2,9 @@ package id.ac.ui.cs.advprog.heymartauth.service;
 
 import id.ac.ui.cs.advprog.heymartauth.model.User;
 import id.ac.ui.cs.advprog.heymartauth.repository.UserRepository;
-import id.ac.ui.cs.advprog.heymartauth.request.AuthenticationRequest;
-import id.ac.ui.cs.advprog.heymartauth.request.UserRegisterRequest;
-import id.ac.ui.cs.advprog.heymartauth.response.AuthenticationResponse;
+import id.ac.ui.cs.advprog.heymartauth.dto.AuthenticationRequest;
+import id.ac.ui.cs.advprog.heymartauth.dto.UserRegisterRequest;
+import id.ac.ui.cs.advprog.heymartauth.dto.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

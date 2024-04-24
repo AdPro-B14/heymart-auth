@@ -2,9 +2,9 @@ package id.ac.ui.cs.advprog.heymartauth.service;
 
 import id.ac.ui.cs.advprog.heymartauth.model.User;
 import id.ac.ui.cs.advprog.heymartauth.repository.UserRepository;
-import id.ac.ui.cs.advprog.heymartauth.request.AuthenticationRequest;
-import id.ac.ui.cs.advprog.heymartauth.request.UserRegisterRequest;
-import id.ac.ui.cs.advprog.heymartauth.response.AuthenticationResponse;
+import id.ac.ui.cs.advprog.heymartauth.dto.AuthenticationRequest;
+import id.ac.ui.cs.advprog.heymartauth.dto.UserRegisterRequest;
+import id.ac.ui.cs.advprog.heymartauth.dto.AuthenticationResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

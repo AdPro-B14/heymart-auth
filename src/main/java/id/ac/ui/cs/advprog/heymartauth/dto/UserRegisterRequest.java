@@ -1,4 +1,4 @@
-package id.ac.ui.cs.advprog.heymartauth.request;
+package id.ac.ui.cs.advprog.heymartauth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
