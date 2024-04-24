@@ -14,8 +14,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/profile")
-    public ResponseEntity<GetProfileResponse> getProfile(@RequestBody GetProfileRequest request) {
-        User user = userService.findByEmail(request.email);
+    public ResponseEntity<GetProfileResponse> getProfile(@RequestParam String email) {
+        User user = userService.findByEmail(email);
 
         GetProfileResponse response = new GetProfileResponse();
         response.name = user.getName();
