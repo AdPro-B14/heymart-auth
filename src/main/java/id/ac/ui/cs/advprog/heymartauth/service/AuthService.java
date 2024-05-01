@@ -41,6 +41,7 @@ public class AuthService {
         userRepository.save(user);
 
         Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("email", user.getEmail());
         extraClaims.put("role", user.getRole());
 
         var jwtToken = jwtService.generateToken(extraClaims, user);
@@ -54,6 +55,7 @@ public class AuthService {
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
 
         Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("email", user.getEmail());
         extraClaims.put("role", user.getRole());
 
         var jwtToken = jwtService.generateToken(extraClaims, user);
