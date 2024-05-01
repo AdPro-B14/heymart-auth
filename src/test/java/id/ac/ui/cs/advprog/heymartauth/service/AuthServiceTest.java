@@ -19,6 +19,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
@@ -84,7 +86,7 @@ public class AuthServiceTest {
         AuthenticationResponse registerResponse = new AuthenticationResponse();
         registerResponse.setToken(token);
 
-        doReturn(token).when(jwtService).generateToken(user);
+        doReturn(token).when(jwtService).generateToken(any(), eq(user));
 
         assertEquals(registerResponse, authService.register(registerRequest));
     }
@@ -111,7 +113,7 @@ public class AuthServiceTest {
 
     @Test
     void testAuthenticateValid() {
-        doReturn("jwt-token-123").when(jwtService).generateToken(user);
+        doReturn("jwt-token-123").when(jwtService).generateToken(any(), eq(user));
         doReturn(Optional.ofNullable(user)).when(userRepository).findByEmail(user.getEmail());
         doReturn(null).when(authenticationManager).authenticate(new UsernamePasswordAuthenticationToken(
                 user.getEmail(),
