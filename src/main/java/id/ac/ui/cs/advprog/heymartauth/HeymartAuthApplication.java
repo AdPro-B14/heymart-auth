@@ -25,6 +25,9 @@ public class HeymartAuthApplication {
 	@Value("${app.gateway.store}")
 	String STORE_SERVICE_HOST;
 
+	@Value("${app.gateway.order}")
+	String ORDER_SERVICE_HOST;
+
 	@Value("${app.gateway.token}")
 	private String X_GATEWAY_TOKEN;
 
@@ -68,6 +71,42 @@ public class HeymartAuthApplication {
 		return route("store")
 				.DELETE(API_PREFIX + "store/" + WILDCARD, http(STORE_SERVICE_HOST))
 				.before(rewritePath(API_PREFIX + "store/" + "(?<segment>.*)", "/${segment}"))
+				.filter(this::addHeadersFilter)
+				.build();
+	}
+
+	@Bean
+	public RouterFunction<ServerResponse> apiRouteOrderGet() {
+		return route("order")
+				.GET(API_PREFIX + "order/" + WILDCARD, http(ORDER_SERVICE_HOST))
+				.before(rewritePath(API_PREFIX + "order/" + "(?<segment>.*)", "/${segment}"))
+				.filter(this::addHeadersFilter)
+				.build();
+	}
+
+	@Bean
+	public RouterFunction<ServerResponse> apiRouteOrderPost() {
+		return route("order")
+				.POST(API_PREFIX + "order/" + WILDCARD, http(ORDER_SERVICE_HOST))
+				.before(rewritePath(API_PREFIX + "order/" + "(?<segment>.*)", "/${segment}"))
+				.filter(this::addHeadersFilter)
+				.build();
+	}
+
+	@Bean
+	public RouterFunction<ServerResponse> apiRouteOrderPut() {
+		return route("order")
+				.PUT(API_PREFIX + "order/" + WILDCARD, http(ORDER_SERVICE_HOST))
+				.before(rewritePath(API_PREFIX + "order/" + "(?<segment>.*)", "/${segment}"))
+				.filter(this::addHeadersFilter)
+				.build();
+	}
+
+	@Bean
+	public RouterFunction<ServerResponse> apiRouteOrderDelete() {
+		return route("order")
+				.DELETE(API_PREFIX + "order/" + WILDCARD, http(ORDER_SERVICE_HOST))
+				.before(rewritePath(API_PREFIX + "order/" + "(?<segment>.*)", "/${segment}"))
 				.filter(this::addHeadersFilter)
 				.build();
 	}
