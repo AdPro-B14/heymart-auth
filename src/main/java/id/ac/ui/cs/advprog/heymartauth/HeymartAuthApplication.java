@@ -29,9 +29,7 @@ public class HeymartAuthApplication {
 	private String X_GATEWAY_TOKEN;
 
 	public ServerResponse addHeadersFilter(ServerRequest request, HandlerFunction<ServerResponse> next) throws Exception {
-		String authorizationHeader = request.headers().header("Authorization").getFirst();
 		ServerRequest updatedRequest = ServerRequest.from(request)
-				.header("Authorization", authorizationHeader)
 				.header("X-Gateway-Token", X_GATEWAY_TOKEN)
 				.build();
 
