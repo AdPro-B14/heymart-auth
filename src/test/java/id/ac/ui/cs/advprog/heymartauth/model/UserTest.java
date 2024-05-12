@@ -15,61 +15,61 @@ public class UserTest {
 
     @Test
     void testRoleNotExists() {
-        assertThrows(IllegalArgumentException.class, () -> User.getBuilder().setRole("subscriber"));
-        assertThrows(IllegalArgumentException.class, () -> User.getBuilder().setRole(null));
-        assertThrows(IllegalArgumentException.class, () -> User.getBuilder().setRole("1"));
+        assertThrows(IllegalArgumentException.class, () -> User.builder().role("subscriber"));
+        assertThrows(IllegalArgumentException.class, () -> User.builder().role(null));
+        assertThrows(IllegalArgumentException.class, () -> User.builder().role("1"));
     }
 
     @Test
     void testRoleExists() {
-        assertDoesNotThrow(() -> User.getBuilder().setRole("admin"));
-        assertDoesNotThrow(() -> User.getBuilder().setRole("customer"));
-        assertDoesNotThrow(() -> User.getBuilder().setRole("manager"));
+        assertDoesNotThrow(() -> User.builder().role("admin"));
+        assertDoesNotThrow(() -> User.builder().role("customer"));
+        assertDoesNotThrow(() -> User.builder().role("manager"));
     }
 
     @Test
     void testEmailNotValid() {
-        assertThrows(IllegalArgumentException.class, () -> User.getBuilder().setEmail("arvint"));
-        assertThrows(IllegalArgumentException.class, () -> User.getBuilder().setEmail(null));
+        assertThrows(IllegalArgumentException.class, () -> User.builder().email("arvint"));
+        assertThrows(IllegalArgumentException.class, () -> User.builder().email(null));
     }
 
     @Test
     void testEmailValid() {
-        assertDoesNotThrow(() -> User.getBuilder().setEmail("abcde@gmail.com"));
-        assertDoesNotThrow(() -> User.getBuilder().setEmail("arwrwrwrw@gmail.com"));
+        assertDoesNotThrow(() -> User.builder().email("abcde@gmail.com"));
+        assertDoesNotThrow(() -> User.builder().email("arwrwrwrw@gmail.com"));
     }
 
     @Test
     void testNameNotValid() {
-        assertThrows(IllegalArgumentException.class, () -> User.getBuilder().setName("abc"));
-        assertThrows(IllegalArgumentException.class, () -> User.getBuilder().setName(null));
+        assertThrows(IllegalArgumentException.class, () -> User.builder().name("abc"));
+        assertThrows(IllegalArgumentException.class, () -> User.builder().name(null));
     }
 
     @Test
     void testNameValid() {
-        assertDoesNotThrow(() -> User.getBuilder().setName("arvin ciu"));
-        assertDoesNotThrow(() -> User.getBuilder().setName("abcdwdwrwrwrwr"));
+        assertDoesNotThrow(() -> User.builder().name("arvin ciu"));
+        assertDoesNotThrow(() -> User.builder().name("abcdwdwrwrwrwr"));
     }
 
     @Test
     void testPasswordNotValid() {
-        assertThrows(IllegalArgumentException.class, () -> User.getBuilder().setPassword("abcd"));
-        assertThrows(IllegalArgumentException.class, () -> User.getBuilder().setPassword(null));
+        assertThrows(IllegalArgumentException.class, () -> User.builder().password("abcd"));
+        assertThrows(IllegalArgumentException.class, () -> User.builder().password(null));
     }
 
     @Test
     void testPasswordValid() {
-        assertDoesNotThrow(() -> User.getBuilder().setPassword("arvinciu123"));
-        assertDoesNotThrow(() -> User.getBuilder().setPassword("abcdwdwrwrwrwr423"));
+        assertDoesNotThrow(() -> User.builder().password("arvinciu123"));
+        assertDoesNotThrow(() -> User.builder().password("abcdwdwrwrwrwr423"));
     }
 
     @Test
     void testUserBuild() {
-        User user1 = User.getBuilder()
-                .setName("Arvin")
-                .setEmail("arvinciu86@gmail.com")
-                .setPassword("adprolancar123")
-                .setRole("aDmiN")
+        User user1 = User.builder()
+                .name("Arvin")
+                .email("arvinciu86@gmail.com")
+                .password("adprolancar123")
+                .role("aDmiN")
                 .build();
 
 

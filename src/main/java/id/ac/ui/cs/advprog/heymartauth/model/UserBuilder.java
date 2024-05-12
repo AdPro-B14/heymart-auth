@@ -1,7 +1,5 @@
 package id.ac.ui.cs.advprog.heymartauth.model;
 
-import lombok.Getter;
-
 import java.util.regex.Pattern;
 
 public class UserBuilder {
@@ -13,7 +11,7 @@ public class UserBuilder {
 
     private UserRole role;
 
-    public UserBuilder setName(String name) {
+    public UserBuilder name(String name) {
         if (name == null || name.length() < 5) {
             throw new IllegalArgumentException();
         }
@@ -22,7 +20,7 @@ public class UserBuilder {
         return this;
     }
 
-    public UserBuilder setEmail(String email) {
+    public UserBuilder email(String email) {
         if (email == null || !Pattern.compile("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,7}\\b").matcher(email).matches()) {
             throw new IllegalArgumentException();
         }
@@ -31,7 +29,7 @@ public class UserBuilder {
         return this;
     }
 
-    public UserBuilder setPassword(String password) {
+    public UserBuilder password(String password) {
         if (password == null || password.length() < 8) {
             throw new IllegalArgumentException();
         }
@@ -40,7 +38,7 @@ public class UserBuilder {
         return this;
     }
 
-    public UserBuilder setRole(String role) {
+    public UserBuilder role(String role) {
         if (role == null || !UserRole.contains(role)) {
             throw new IllegalArgumentException();
         }

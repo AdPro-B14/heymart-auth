@@ -27,11 +27,11 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(UserRegisterRequest request) {
-        var user = User.getBuilder()
-                .setName(request.getName())
-                .setEmail(request.getEmail())
-                .setPassword(passwordEncoder.encode(request.getPassword()))
-                .setRole("customer")
+        var user = User.builder()
+                .name(request.getName())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role("customer")
                 .build();
 
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {

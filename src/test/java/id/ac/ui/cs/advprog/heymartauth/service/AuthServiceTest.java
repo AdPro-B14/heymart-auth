@@ -50,11 +50,11 @@ public class AuthServiceTest {
 
         doReturn("213921839afwqfn").when(passwordEncoder).encode(password);
 
-        user = User.getBuilder()
-                .setName(name)
-                .setEmail(email)
-                .setPassword(passwordEncoder.encode(password))
-                .setRole("admin")
+        user = User.builder()
+                .name(name)
+                .email(email)
+                .password(passwordEncoder.encode(password))
+                .role("admin")
                 .build();
 
         AuthenticationRequest registerRequest = new AuthenticationRequest();
@@ -71,11 +71,11 @@ public class AuthServiceTest {
 
         doReturn("213921839affn").when(passwordEncoder).encode(password);
 
-        User user = User.getBuilder()
-                .setName(name)
-                .setEmail(email)
-                .setPassword(passwordEncoder.encode(password))
-                .setRole("customer")
+        User user = User.builder()
+                .name(name)
+                .email(email)
+                .password(passwordEncoder.encode(password))
+                .role("customer")
                 .build();
 
         UserRegisterRequest registerRequest = new UserRegisterRequest();

@@ -30,7 +30,7 @@ public class User implements UserDetails {
     @Setter
     private UserRole role;
 
-    public static UserBuilder getBuilder() {
+    public static UserBuilder builder() {
         return new UserBuilder();
     }
 

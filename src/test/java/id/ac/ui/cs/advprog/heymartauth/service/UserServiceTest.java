@@ -1,18 +1,13 @@
 package id.ac.ui.cs.advprog.heymartauth.service;
 
-import id.ac.ui.cs.advprog.heymartauth.dto.AuthenticationRequest;
 import id.ac.ui.cs.advprog.heymartauth.model.User;
 import id.ac.ui.cs.advprog.heymartauth.repository.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -35,11 +30,11 @@ public class UserServiceTest {
         String email = "arvin@gmail.com";
         String password = "this-should-be-token";
 
-        var user = User.getBuilder()
-                .setName(name)
-                .setEmail(email)
-                .setPassword(password)
-                .setRole("customer")
+        var user = User.builder()
+                .name(name)
+                .email(email)
+                .password(password)
+                .role("customer")
                 .build();
 
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
