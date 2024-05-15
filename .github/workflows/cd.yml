@@ -73,6 +73,7 @@ jobs:
           env_vars: |
             PG_HOST=${{ secrets.PG_HOST }}
             PG_HOST_DEV=${{ secrets.PG_HOST_DEV }}
+            PG_HOST_DEV=${{ secrets.PG_HOST_STAGING }}
             PG_USERNAME=${{ secrets.PG_USERNAME }}
             PG_PASSWORD=${{ secrets.PG_PASSWORD }}
             JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
