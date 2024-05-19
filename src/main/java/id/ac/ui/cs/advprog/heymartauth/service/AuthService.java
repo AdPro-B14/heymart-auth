@@ -28,9 +28,7 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(@RequestHeader("Authorization") String id, UserRegisterRequest request) throws IllegalAccessException {
-        String token = id.replace("Bearer ", "");
-
+    public AuthenticationResponse register(UserRegisterRequest request) {
         var user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
@@ -44,11 +42,6 @@ public class AuthService {
         }
         if (user.getRole() == UserRole.ADMIN) {
             throw new IllegalArgumentException("User can not be an admin.");
-        }
-        if (user.getRole() == UserRole.MANAGER) {
-            if (!jwtService.extractRole(token).equalsIgnoreCase("admin")) {
-                throw new IllegalAccessException("You have no access.");
-            }
         }
 
         userRepository.save(user);
