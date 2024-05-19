@@ -11,6 +11,8 @@ public class UserBuilder {
 
     private UserRole role;
 
+    private Long managerSupermarketId;
+
     public UserBuilder name(String name) {
         if (name == null || name.length() < 5) {
             throw new IllegalArgumentException();
@@ -47,12 +49,22 @@ public class UserBuilder {
         return this;
     }
 
+    public UserBuilder managerSupermarketId(Long supermarketId) {
+        if (supermarketId == null) {
+            throw new IllegalArgumentException();
+        }
+
+        this.managerSupermarketId = supermarketId;
+        return this;
+    }
+
     public User build() {
         User user = new User();
         user.setName(this.name);
         user.setEmail(this.email);
         user.setPassword(this.password);
         user.setRole(this.role);
+        user.setManagerSupermarketId(this.managerSupermarketId);
         return user;
     }
 }
