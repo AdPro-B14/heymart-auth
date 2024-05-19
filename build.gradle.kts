@@ -59,7 +59,6 @@ dependencies {
 	testRuntimeOnly("com.h2database:h2")
 //	monitoring
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.springframework.boot:spring-boot-starter-web")
 	runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 }
 

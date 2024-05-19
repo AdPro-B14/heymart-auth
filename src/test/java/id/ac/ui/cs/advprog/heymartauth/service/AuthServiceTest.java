@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.heymartauth.service;
 
+import id.ac.ui.cs.advprog.heymartauth.dto.ManagerRegisterRequest;
 import id.ac.ui.cs.advprog.heymartauth.model.User;
 import id.ac.ui.cs.advprog.heymartauth.repository.UserRepository;
 import id.ac.ui.cs.advprog.heymartauth.dto.AuthenticationRequest;
@@ -63,7 +64,7 @@ public class AuthServiceTest {
     }
 
     @Test
-    void testRegisterValid() {
+    void testRegisterCustomerValid() {
         String name = "dummy-123";
         String email = "abcdefg@gmail.com";
         String password = "abcdefg123";
@@ -88,27 +89,83 @@ public class AuthServiceTest {
 
         doReturn(token).when(jwtService).generateToken(any(), eq(user));
 
-        assertEquals(registerResponse, authService.register(registerRequest));
+        assertEquals(registerResponse, authService.registerCustomer(registerRequest));
     }
 
     @Test
-    void testRegisterNotValid() {
+    void testRegisterCustomerNotValid() {
         String email = "abcdefg@gmail.com";
         String password = "abcdefg123";
 
         UserRegisterRequest registerRequest1 = new UserRegisterRequest();
         registerRequest1.setEmail(email);
 
-        assertThrows(IllegalArgumentException.class, () -> authService.register(registerRequest1));
+        assertThrows(IllegalArgumentException.class, () -> authService.registerCustomer(registerRequest1));
 
         UserRegisterRequest registerRequest2 = new UserRegisterRequest();
         registerRequest2.setPassword(password);
 
-        assertThrows(IllegalArgumentException.class, () -> authService.register(registerRequest2));
+        assertThrows(IllegalArgumentException.class, () -> authService.registerCustomer(registerRequest2));
 
         UserRegisterRequest registerRequest3 = new UserRegisterRequest();
 
-        assertThrows(IllegalArgumentException.class, () -> authService.register(registerRequest3));
+        assertThrows(IllegalArgumentException.class, () -> authService.registerCustomer(registerRequest3));
+    }
+
+    @Test
+    void testRegisterManagerValid() {
+        String name = "dummy-123";
+        String email = "abcdefg@gmail.com";
+        String password = "abcdefg123";
+        String token = "20e909102-fwaofkwaofk";
+
+        doReturn("213921839affn").when(passwordEncoder).encode(password);
+
+        User user = User.builder()
+                .name(name)
+                .email(email)
+                .password(passwordEncoder.encode(password))
+                .role("manager")
+                .managerSupermarketId(1L)
+                .build();
+
+        ManagerRegisterRequest registerRequest = new ManagerRegisterRequest();
+        registerRequest.setName(name);
+        registerRequest.setEmail(email);
+        registerRequest.setPassword(password);
+        registerRequest.setSupermarketId(1L);
+
+        AuthenticationResponse registerResponse = new AuthenticationResponse();
+        registerResponse.setToken(token);
+
+        doReturn(token).when(jwtService).generateToken(any(), eq(user));
+
+        assertEquals(registerResponse, authService.registerManager(registerRequest));
+    }
+
+    @Test
+    void testRegisterManagerNotValid() {
+        String email = "abcdefg@gmail.com";
+        String password = "abcdefg123";
+
+        ManagerRegisterRequest registerRequest1 = new ManagerRegisterRequest();
+        registerRequest1.setEmail(email);
+
+        assertThrows(IllegalArgumentException.class, () -> authService.registerManager(registerRequest1));
+
+        ManagerRegisterRequest registerRequest2 = new ManagerRegisterRequest();
+        registerRequest2.setPassword(password);
+
+        assertThrows(IllegalArgumentException.class, () -> authService.registerManager(registerRequest2));
+
+        ManagerRegisterRequest registerRequest3 = new ManagerRegisterRequest();
+
+        assertThrows(IllegalArgumentException.class, () -> authService.registerManager(registerRequest3));
+
+        ManagerRegisterRequest registerRequest4 = new ManagerRegisterRequest();
+        registerRequest1.setSupermarketId(1L);
+
+        assertThrows(IllegalArgumentException.class, () -> authService.registerManager(registerRequest4));
     }
 
     @Test

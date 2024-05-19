@@ -44,7 +44,6 @@ public class HeymartAuthApplication {
 		return route("store")
 				.GET(API_PREFIX + "store/" + WILDCARD, http(STORE_SERVICE_HOST))
 				.before(rewritePath(API_PREFIX + "store/" + "(?<segment>.*)", "/${segment}"))
-				.filter(this::addHeadersFilter)
 				.build();
 	}
 

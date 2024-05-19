@@ -1,7 +1,7 @@
 package id.ac.ui.cs.advprog.heymartauth.service;
 
+import id.ac.ui.cs.advprog.heymartauth.dto.ManagerRegisterRequest;
 import id.ac.ui.cs.advprog.heymartauth.model.User;
-import id.ac.ui.cs.advprog.heymartauth.model.UserRole;
 import id.ac.ui.cs.advprog.heymartauth.repository.UserRepository;
 import id.ac.ui.cs.advprog.heymartauth.dto.AuthenticationRequest;
 import id.ac.ui.cs.advprog.heymartauth.dto.UserRegisterRequest;
@@ -11,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,20 +27,16 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(UserRegisterRequest request) {
+    public AuthenticationResponse registerCustomer(UserRegisterRequest request) {
         var user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
-                .managerSupermarketId(request.getManagerSupermarketId())
+                .role("CUSTOMER")
                 .build();
 
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new IllegalArgumentException("User already exists.");
-        }
-        if (user.getRole() == UserRole.ADMIN) {
-            throw new IllegalArgumentException("User can not be an admin.");
         }
 
         userRepository.save(user);
@@ -52,6 +47,10 @@ public class AuthService {
 
         var jwtToken = jwtService.generateToken(extraClaims, user);
         return AuthenticationResponse.builder().token(jwtToken).build();
+    }
+
+    public AuthenticationResponse registerManager(ManagerRegisterRequest request) {
+        return null;
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {

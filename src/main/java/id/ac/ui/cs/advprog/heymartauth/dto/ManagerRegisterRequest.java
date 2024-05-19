@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRegisterRequest {
+public class ManagerRegisterRequest {
     private String name;
     private String email;
     private String password;
+    private Long supermarketId;
 }
