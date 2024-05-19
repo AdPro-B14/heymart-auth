@@ -50,7 +50,26 @@ public class AuthService {
     }
 
     public AuthenticationResponse registerManager(ManagerRegisterRequest request) {
-        return null;
+        var user = User.builder()
+                .name(request.getName())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role("MANAGER")
+                .managerSupermarketId(request.getSupermarketId())
+                .build();
+
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("User already exists.");
+        }
+
+        userRepository.save(user);
+
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("userId", user.getId());
+        extraClaims.put("role", user.getRole());
+
+        var jwtToken = jwtService.generateToken(extraClaims, user);
+        return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
