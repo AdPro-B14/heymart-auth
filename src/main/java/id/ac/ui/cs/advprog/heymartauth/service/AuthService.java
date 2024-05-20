@@ -1,16 +1,14 @@
 package id.ac.ui.cs.advprog.heymartauth.service;
 
-import id.ac.ui.cs.advprog.heymartauth.dto.ManagerRegisterRequest;
+import id.ac.ui.cs.advprog.heymartauth.dto.*;
 import id.ac.ui.cs.advprog.heymartauth.model.User;
 import id.ac.ui.cs.advprog.heymartauth.repository.UserRepository;
-import id.ac.ui.cs.advprog.heymartauth.dto.AuthenticationRequest;
-import id.ac.ui.cs.advprog.heymartauth.dto.UserRegisterRequest;
-import id.ac.ui.cs.advprog.heymartauth.dto.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -70,6 +68,11 @@ public class AuthService {
 
         var jwtToken = jwtService.generateToken(extraClaims, user);
         return AuthenticationResponse.builder().token(jwtToken).build();
+    }
+
+    @Transactional
+    public void removeManager(ManagerRemovalRequest request) {
+        userRepository.deleteUserByEmail(request.getEmail()).orElseThrow();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {

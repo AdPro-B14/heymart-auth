@@ -1,9 +1,6 @@
 package id.ac.ui.cs.advprog.heymartauth.controller;
 
-import id.ac.ui.cs.advprog.heymartauth.dto.AuthenticationRequest;
-import id.ac.ui.cs.advprog.heymartauth.dto.ManagerRegisterRequest;
-import id.ac.ui.cs.advprog.heymartauth.dto.UserRegisterRequest;
-import id.ac.ui.cs.advprog.heymartauth.dto.AuthenticationResponse;
+import id.ac.ui.cs.advprog.heymartauth.dto.*;
 import id.ac.ui.cs.advprog.heymartauth.service.AuthService;
 import id.ac.ui.cs.advprog.heymartauth.service.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +27,17 @@ public class AuthController {
         }
 
         return ResponseEntity.ok(authService.registerManager(request));
+    }
+
+    @PostMapping("/remove-manager")
+    public ResponseEntity<Void> removeManager(@RequestHeader("Authorization") String id, @RequestBody ManagerRemovalRequest request) throws IllegalAccessException {
+        String token = id.replace("Bearer ", "");
+        if (!jwtService.extractRole(token).equalsIgnoreCase("admin")) {
+            throw new IllegalAccessException("You have no access.");
+        }
+
+        authService.removeManager(request);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/login")
