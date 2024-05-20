@@ -129,11 +129,13 @@ public class AuthServiceTest {
                 .managerSupermarketId(1L)
                 .build();
 
-        ManagerRegisterRequest registerRequest = new ManagerRegisterRequest();
-        registerRequest.setName(name);
-        registerRequest.setEmail(email);
-        registerRequest.setPassword(password);
-        registerRequest.setSupermarketId(1L);
+        ManagerRegisterRequest registerRequest = ManagerRegisterRequest
+                .builder()
+                .name(name)
+                .email(email)
+                .password(password)
+                .supermarketId(1L)
+                .build();
 
         AuthenticationResponse registerResponse = new AuthenticationResponse();
         registerResponse.setToken(token);
