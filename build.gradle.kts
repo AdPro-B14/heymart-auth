@@ -103,7 +103,8 @@ tasks.jacocoTestReport {
 					"**/*Application**",
 					"**/util/**",
 					"**/rest/**",
-					"**/exception/**"
+					"**/exception/**",
+					"**/config/**"
 			))
 		}
 	}))
