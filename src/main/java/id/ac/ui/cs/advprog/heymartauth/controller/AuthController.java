@@ -4,8 +4,10 @@ import id.ac.ui.cs.advprog.heymartauth.dto.*;
 import id.ac.ui.cs.advprog.heymartauth.service.AuthService;
 import id.ac.ui.cs.advprog.heymartauth.service.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -23,7 +25,7 @@ public class AuthController {
     public ResponseEntity<AuthenticationResponse> registerManager(@RequestHeader("Authorization") String id, @RequestBody ManagerRegisterRequest request) throws IllegalAccessException {
         String token = id.replace("Bearer ", "");
         if (!jwtService.extractRole(token).equalsIgnoreCase("admin")) {
-            throw new IllegalAccessException("You have no access.");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
 
         return ResponseEntity.ok(authService.registerManager(request));
@@ -33,7 +35,7 @@ public class AuthController {
     public ResponseEntity<Void> removeManager(@RequestHeader("Authorization") String id, @RequestBody ManagerRemovalRequest request) throws IllegalAccessException {
         String token = id.replace("Bearer ", "");
         if (!jwtService.extractRole(token).equalsIgnoreCase("admin")) {
-            throw new IllegalAccessException("You have no access.");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
 
         authService.removeManager(request);
