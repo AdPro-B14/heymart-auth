@@ -1,0 +1,21 @@
+on:
+  # Trigger analysis when pushing in master or pull requests, and when creating
+  # a pull request.
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
+permissions:
+  pull-requests: read
+name: SonarCloud Analysis
+jobs:
+  sonarcloud:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@2.2.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=adpro-b14
+            -Dsonar.projectKey=AdPro-B14_heymart-auth
