@@ -95,7 +95,20 @@ tasks.test {
 
 tasks.jacocoTestReport {
 	dependsOn(tasks.test)
+	classDirectories.setFrom(files(classDirectories.files.map {
+		fileTree(it) {
+			setExcludes(listOf(
+					"**/dto/**",
+					"**/model/**",
+					"**/*Application**",
+					"**/util/**",
+					"**/rest/**",
+					"**/exception/**"
+			))
+		}
+	}))
 	reports {
-		xml.required = true
+		xml.required = true;
+		csv.required = false;
 	}
 }
