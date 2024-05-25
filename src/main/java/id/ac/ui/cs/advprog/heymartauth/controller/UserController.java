@@ -27,6 +27,7 @@ public class UserController {
         response.email = user.getEmail();
         response.id = user.getId();
         response.role = user.getRole();
+        response.manager_id = user.getManagerSupermarketId();
 
         return ResponseEntity.ok(response);
     }
