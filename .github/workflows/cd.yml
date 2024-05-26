@@ -73,6 +73,7 @@ jobs:
           env_vars: |
             PG_HOST=${{ secrets.PG_HOST }}
             PG_HOST_DEV=${{ secrets.PG_HOST_DEV }}
+            PG_HOST_DEV=${{ secrets.PG_HOST_STAGING }}
             PG_USERNAME=${{ secrets.PG_USERNAME }}
             PG_PASSWORD=${{ secrets.PG_PASSWORD }}
             JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
@@ -82,4 +83,6 @@ jobs:
             GATEWAY_STORE_HOST=${{ secrets.GATEWAY_STORE_HOST }}
             GATEWAY_ORDER_HOST_DEV=${{ secrets.GATEWAY_ORDER_HOST_DEV }}
             GATEWAY_STORE_HOST_DEV=${{ secrets.GATEWAY_STORE_HOST_DEV }}
-            ENVIRONMENT_PROFILE=${{ needs.set-environment.outputs.profile }}
+            GATEWAY_ORDER_HOST_STAGING=${{ secrets.GATEWAY_ORDER_HOST_STAGING }}
+            GATEWAY_STORE_HOST_STAGING=${{ secrets.GATEWAY_STORE_HOST_STAGING }}
+            ENVIRONMENT_PROFILE=${{ needs.set-environment.outputs.environment }}

@@ -31,6 +31,11 @@ public class HeymartAuthApplication {
 	@Value("${app.gateway.token}")
 	private String X_GATEWAY_TOKEN;
 
+	private final String STORE_ID = "store";
+	private final String STORE_PREFIX = "store/";
+	private final String ORDER_ID = "order";
+	private final String ORDER_PREFIX = "order/";
+
 	public ServerResponse addHeadersFilter(ServerRequest request, HandlerFunction<ServerResponse> next) throws Exception {
 		ServerRequest updatedRequest = ServerRequest.from(request)
 				.header("X-Gateway-Token", X_GATEWAY_TOKEN)
@@ -41,17 +46,16 @@ public class HeymartAuthApplication {
 
 	@Bean
 	public RouterFunction<ServerResponse> apiRouteStoreGet() {
-		return route("store")
-				.GET(API_PREFIX + "store/" + WILDCARD, http(STORE_SERVICE_HOST))
+		return route(STORE_ID)
+				.GET(API_PREFIX + STORE_PREFIX + WILDCARD, http(STORE_SERVICE_HOST))
 				.before(rewritePath(API_PREFIX + "store/" + "(?<segment>.*)", "/${segment}"))
-				.filter(this::addHeadersFilter)
 				.build();
 	}
 
 	@Bean
 	public RouterFunction<ServerResponse> apiRouteStorePost() {
-		return route("store")
-				.POST(API_PREFIX + "store/" + WILDCARD, http(STORE_SERVICE_HOST))
+		return route(STORE_ID)
+				.POST(API_PREFIX + STORE_PREFIX + WILDCARD, http(STORE_SERVICE_HOST))
 				.before(rewritePath(API_PREFIX + "store/" + "(?<segment>.*)", "/${segment}"))
 				.filter(this::addHeadersFilter)
 				.build();
@@ -59,8 +63,8 @@ public class HeymartAuthApplication {
 
 	@Bean
 	public RouterFunction<ServerResponse> apiRouteStorePut() {
-		return route("store")
-				.PUT(API_PREFIX + "store/" + WILDCARD, http(STORE_SERVICE_HOST))
+		return route(STORE_ID)
+				.PUT(API_PREFIX + STORE_PREFIX + WILDCARD, http(STORE_SERVICE_HOST))
 				.before(rewritePath(API_PREFIX + "store/" + "(?<segment>.*)", "/${segment}"))
 				.filter(this::addHeadersFilter)
 				.build();
@@ -68,8 +72,8 @@ public class HeymartAuthApplication {
 
 	@Bean
 	public RouterFunction<ServerResponse> apiRouteStoreDelete() {
-		return route("store")
-				.DELETE(API_PREFIX + "store/" + WILDCARD, http(STORE_SERVICE_HOST))
+		return route(STORE_ID)
+				.DELETE(API_PREFIX + STORE_PREFIX + WILDCARD, http(STORE_SERVICE_HOST))
 				.before(rewritePath(API_PREFIX + "store/" + "(?<segment>.*)", "/${segment}"))
 				.filter(this::addHeadersFilter)
 				.build();
@@ -77,8 +81,8 @@ public class HeymartAuthApplication {
 
 	@Bean
 	public RouterFunction<ServerResponse> apiRouteOrderGet() {
-		return route("order")
-				.GET(API_PREFIX + "order/" + WILDCARD, http(ORDER_SERVICE_HOST))
+		return route(ORDER_ID)
+				.GET(API_PREFIX + ORDER_PREFIX + WILDCARD, http(ORDER_SERVICE_HOST))
 				.before(rewritePath(API_PREFIX + "order/" + "(?<segment>.*)", "/${segment}"))
 				.filter(this::addHeadersFilter)
 				.build();
@@ -86,8 +90,8 @@ public class HeymartAuthApplication {
 
 	@Bean
 	public RouterFunction<ServerResponse> apiRouteOrderPost() {
-		return route("order")
-				.POST(API_PREFIX + "order/" + WILDCARD, http(ORDER_SERVICE_HOST))
+		return route(ORDER_ID)
+				.POST(API_PREFIX + ORDER_PREFIX + WILDCARD, http(ORDER_SERVICE_HOST))
 				.before(rewritePath(API_PREFIX + "order/" + "(?<segment>.*)", "/${segment}"))
 				.filter(this::addHeadersFilter)
 				.build();
@@ -95,8 +99,8 @@ public class HeymartAuthApplication {
 
 	@Bean
 	public RouterFunction<ServerResponse> apiRouteOrderPut() {
-		return route("order")
-				.PUT(API_PREFIX + "order/" + WILDCARD, http(ORDER_SERVICE_HOST))
+		return route(ORDER_ID)
+				.PUT(API_PREFIX + ORDER_PREFIX + WILDCARD, http(ORDER_SERVICE_HOST))
 				.before(rewritePath(API_PREFIX + "order/" + "(?<segment>.*)", "/${segment}"))
 				.filter(this::addHeadersFilter)
 				.build();
@@ -104,8 +108,8 @@ public class HeymartAuthApplication {
 
 	@Bean
 	public RouterFunction<ServerResponse> apiRouteOrderDelete() {
-		return route("order")
-				.DELETE(API_PREFIX + "order/" + WILDCARD, http(ORDER_SERVICE_HOST))
+		return route(ORDER_ID)
+				.DELETE(API_PREFIX + ORDER_PREFIX + WILDCARD, http(ORDER_SERVICE_HOST))
 				.before(rewritePath(API_PREFIX + "order/" + "(?<segment>.*)", "/${segment}"))
 				.filter(this::addHeadersFilter)
 				.build();

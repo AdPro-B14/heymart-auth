@@ -7,4 +7,5 @@ public class GetProfileResponse {
     public String email;
     public String name;
     public UserRole role;
+    public Long manager_supermarket_id;
 }
