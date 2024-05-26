@@ -6,6 +6,7 @@ import id.ac.ui.cs.advprog.heymartauth.repository.UserRepository;
 import id.ac.ui.cs.advprog.heymartauth.dto.AuthenticationRequest;
 import id.ac.ui.cs.advprog.heymartauth.dto.UserRegisterRequest;
 import id.ac.ui.cs.advprog.heymartauth.dto.AuthenticationResponse;
+import id.ac.ui.cs.advprog.heymartauth.rest.CustomerBalanceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,6 +41,9 @@ public class AuthServiceTest {
 
     @Mock
     private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private CustomerBalanceService customerBalanceService;
 
     private User user;
 

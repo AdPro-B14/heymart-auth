@@ -3,6 +3,7 @@ package id.ac.ui.cs.advprog.heymartauth.service;
 import id.ac.ui.cs.advprog.heymartauth.dto.*;
 import id.ac.ui.cs.advprog.heymartauth.model.User;
 import id.ac.ui.cs.advprog.heymartauth.repository.UserRepository;
+import id.ac.ui.cs.advprog.heymartauth.rest.CustomerBalanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,6 +26,8 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
 
+    private final CustomerBalanceService customerBalanceService;
+
     public AuthenticationResponse registerCustomer(UserRegisterRequest request) {
         var user = User.builder()
                 .name(request.getName())
@@ -44,6 +47,9 @@ public class AuthService {
         extraClaims.put("role", user.getRole());
 
         var jwtToken = jwtService.generateToken(extraClaims, user);
+
+        customerBalanceService.createBalance(jwtToken);
+
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
