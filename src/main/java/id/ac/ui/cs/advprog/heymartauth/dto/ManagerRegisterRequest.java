@@ -3,12 +3,13 @@ package id.ac.ui.cs.advprog.heymartauth.dto;
 import lombok.*;
 
 @Getter
-@Builder
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRegisterRequest {
+public class ManagerRegisterRequest {
     private String name;
     private String email;
     private String password;
+    private Long supermarketId;
 }

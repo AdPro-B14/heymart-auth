@@ -30,6 +30,9 @@ public class User implements UserDetails {
     @Setter
     private UserRole role;
 
+    @Setter
+    private Long managerSupermarketId;
+
     public static UserBuilder builder() {
         return new UserBuilder();
     }
