@@ -9,12 +9,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class CustomerBalanceService {
     private final WebClient webClient;
 
-    public CustomerBalanceService(@Value("${spring.route.gateway_url}") String gatewayUrl) {
-        this.webClient = WebClient.builder().baseUrl(gatewayUrl + "/api/order/customer-balance").build();
+    public CustomerBalanceService(@Value("${app.gateway.order}") String gatewayUrl) {
+        this.webClient = WebClient.builder().baseUrl(gatewayUrl + "/customer-balance").build();
     }
 
     public void createBalance(String token) {
-        webClient.get()
+        webClient.post()
                 .uri("/create")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                 .retrieve()
